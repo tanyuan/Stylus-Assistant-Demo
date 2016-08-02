@@ -18,21 +18,23 @@ int[] initState0 = {
 
 int isSwitch = 1; 
 
-//Snake Vislz
-//PVector center =  new PVector(250, 700);
-//PVector center =  new PVector(50, 400);
-PVector orignal = new PVector(200, 200);
+PVector orignal = new PVector(600, 400);
 float cmTopx = 30;
-PVector wsOrignal = new PVector(50, 300);  //Rect WorkSpace
+PVector wsOrignal = new PVector(50, 250);  //Rect WorkSpace
 PVector wsLength = new PVector(20*cmTopx, 15*cmTopx);  //iPad Weight 20; Height 15;
 int ellipseR =20;
 PVector upp = new PVector(0, 0);
 PVector down = new PVector(0, 0);
-float uppL = 20;
+
+// Parameters of Arm robot
+float uppL = 19.3;
+float mdL = 2.2;
 float downL = 20;
 float workSpaceR = (uppL+downL)*2*cmTopx;
 float uppLength = uppL*cmTopx;
 float downLength = downL*cmTopx;
+float mdLength = mdL*cmTopx;
+
 float[] servoAngle = new float[2];
 float [] data = {
   300, 300, 512
@@ -72,60 +74,7 @@ void draw() {
     }
     values = angleMap(servoAngle, heightValues);
   } // Replay Point
-  else if (isSwitch == 3) {
-    if (!isReaded) {
-      readFileName = readTxtField.getText();
-      data = Reading(readFileName);
-      isReaded = true;
-    }
-    if (pointIdx<data.length-1 && pointIdx>=0) {
-      println(data[pointIdx]+" , "+data[pointIdx+1]);
-      servoAngle = IKControl(data[pointIdx], -data[pointIdx+1], uppLength, downLength);
-      values = angleMap(servoAngle, int(data[pointIdx+2]));
-    } else {
-      pointIdx = 0;
-    }
-  }
-  // Replay Path
-  else if (isSwitch == 4) {
-    if (!isReaded) {
-      readFileName = readTxtField.getText();
-      data = Reading(readFileName);
-      isReaded = true;
-    }
-    if (pointIdx<data.length-1 && pointIdx>=0) {
-      println("---"+pointIdx);
-      // println(data[0]+","+data[1]+","+data[pointIdx+2]);
-      servoAngle = IKControl(data[pointIdx], -data[pointIdx+1], uppLength, downLength);
-      values = angleMap(servoAngle, int(data[pointIdx+2]));
-      pointIdx = pointIdx +3;
-
-      printArray(values);
-    } else {
-      pointIdx = 0;
-      delay(1000);
-    }
-  }
-
-  // Write Path
-  else if (isSwitch == 5) {
-    if (mousePressed) {
-      IKDraw();
-      values = angleMap(servoAngle, heightValues);
-      if (isRecording) {
-        Recording3(readPath, upp.x, upp.y, heightValues);
-      }
-    }
-  }
-
-
-  // Write Point
-  else if (isSwitch == 6) {
-    if (mousePressed) {
-      IKDraw();
-    }
-    values = angleMap(servoAngle, heightValues);
-  }
+  
 
 
 
