@@ -7,14 +7,16 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
   float alpha;        
   float beta;       
   float[] servoIKPos = new float[2];  
+  
 
-  gamma = atan(l/l1);
+
+  
   A = sq(x)+sq(y);
   B = sq(l1)+sq(l);
-  phi = atan(y/x);
-
-  alpha = degrees(acos( (sq(A)+sq(B)-sq(l2)) /2*A*B));
-  beta = degrees(acos( (sq(B)+sq(l2)-sq(A)) /2*B*l2));
+  gamma = degrees(atan(l/l1));
+  phi = degrees(atan( abs(y)/abs(x) ));
+  alpha = degrees(acos( (A+B-sq(l2)) / (2*sqrt(A)*sqrt(B)) ));
+  beta = degrees(acos( (B+sq(l2)-A) / (2*sqrt(B)*l2) ));
 
   //First Quadrant
   if (x >= 0 && y >= 0) {
@@ -27,7 +29,9 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
     servoIKPos[1] = beta - 90 - alpha;
   }
   
+  
   return servoIKPos;
+  
 }
 
 
@@ -37,17 +41,21 @@ void IKDraw() {
   // x0 y0 is original axes, x y is offset axes
   //x0 = x+cx ; y0 = y+cy
   //x = x0-cx ; y = y0-cy
-  upp.set(mouseX-orignal.x, mouseY-orignal.y);
+  upp.set(mouseX-orignal.x, orignal.y-mouseY);
   //println("up is "+upp);
+  
+  //End Point Drawing
   ellipse(mouseX, mouseY, ellipseR, ellipseR);
-  servoAngle = IKControl(upp.x, -upp.y, uppLength, downLength,mdLength);
+  servoAngle = IKControl(upp.x, upp.y, uppLength, downLength,mdLength);
   //printArray(servoAngle);
   down.x = downLength*cos(radians(servoAngle[0]));
   down.y = downLength*sin(radians(servoAngle[0]));
-  line(orignal.x, orignal.y, down.x+orignal.x, orignal.y+down.y);
-  line(mouseX, mouseY, down.x+orignal.x, orignal.y+down.y);
+  line(orignal.x, orignal.y, down.x+orignal.x, orignal.y-down.y);
+  line(mouseX, mouseY, down.x+orignal.x, orignal.y-down.y);
   //println("down is "+down);
-  ellipse(down.x+orignal.x, orignal.y+down.y, ellipseR, ellipseR);
+  
+  //Middle Point Drawing
+  ellipse(down.x+orignal.x, orignal.y-down.y, ellipseR, ellipseR);
 }
 
 

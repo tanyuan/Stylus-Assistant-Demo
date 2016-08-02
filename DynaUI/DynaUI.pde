@@ -18,7 +18,7 @@ int[] initState0 = {
 
 int isSwitch = 1; 
 
-PVector orignal = new PVector(600, 400);
+PVector orignal = new PVector(600, 750);
 float cmTopx = 30;
 PVector wsOrignal = new PVector(50, 250);  //Rect WorkSpace
 PVector wsLength = new PVector(20*cmTopx, 15*cmTopx);  //iPad Weight 20; Height 15;
@@ -27,9 +27,9 @@ PVector upp = new PVector(0, 0);
 PVector down = new PVector(0, 0);
 
 // Parameters of Arm robot
-float uppL = 19.3;
+float uppL = 20;
 float mdL = 2.2;
-float downL = 20;
+float downL = 19.3;
 float workSpaceR = (uppL+downL)*2*cmTopx;
 float uppLength = uppL*cmTopx;
 float downLength = downL*cmTopx;
