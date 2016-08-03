@@ -10,6 +10,7 @@ void sendEvent(int data[]) {
     //println("i is "+i+" : "+data[i]);
     myPort.write(data[i]/256);
     myPort.write(data[i]%256);
+    //println("data"+i + ":"+data[i]);
   }
 }
 
@@ -23,7 +24,7 @@ int[] readEvent() {
         multiplier = myPort.read(); // Empty loop to avoid non-sense values
         remainder = myPort.read(); // Empty loop to avoid non-sense values
         data[i] = 256 * multiplier + remainder;
-        println("data"+i + ":"+data[i]);
+        
       }
     }
   }

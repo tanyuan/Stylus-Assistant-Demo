@@ -17,16 +17,18 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
   phi = degrees(atan( abs(y)/abs(x) ));
   alpha = degrees(acos( (A+B-sq(l2)) / (2*sqrt(A)*sqrt(B)) ));
   beta = degrees(acos( (B+sq(l2)-A) / (2*sqrt(B)*l2) ));
+  
+  //println("beta:"+beta);
 
   //First Quadrant
   if (x >= 0 && y >= 0) {
     servoIKPos[0] = phi+gamma+alpha;  
-    servoIKPos[1] = beta - 90 - alpha; 
+    servoIKPos[1] = beta - 90 - gamma; 
     
    //Second Quadrant
   } else if (x < 0 && y >=0) {
     servoIKPos[0] = 180-(phi - alpha - gamma);
-    servoIKPos[1] = beta - 90 - alpha;
+    servoIKPos[1] = beta - 90 - gamma;
   }
   
   
@@ -62,12 +64,15 @@ void IKDraw() {
 int[] angleMap(float [] ikAngle, int zAngle) {
   int[] dynaAngle = initState;
   //printArray(initState) ;
-  dynaAngle[0] = int(map(ikAngle[0], -150, 150, 1023, 0));
+  dynaAngle[0] = int(map(ikAngle[0]-180, -150, 150, 1023, 0));
   dynaAngle[1] = int(map(ikAngle[1], -150, 150, 0, 1023));
+  //println("dynaAngle:"+dynaAngle[0]+",dynaAngle[1]:"+dynaAngle[1]);
   dynaAngle[2] = zAngle;
   dynaAngle[3] = zAngle; 
   return dynaAngle;
 }
+
+
 
 
 

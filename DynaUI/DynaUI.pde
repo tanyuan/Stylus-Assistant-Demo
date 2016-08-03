@@ -19,9 +19,12 @@ int[] initState0 = {
 int isSwitch = 1; 
 
 PVector orignal = new PVector(600, 750);
-float cmTopx = 30;
-PVector wsOrignal = new PVector(50, 250);  //Rect WorkSpace
-PVector wsLength = new PVector(20*cmTopx, 15*cmTopx);  //iPad Weight 20; Height 15;
+PVector screen = new PVector(19.7,14.9);
+PVector wsOrig = new PVector(-12.4,19.7);  // workspace original  (cm)
+float cmTopx = 25;
+PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x,orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
+
+PVector wsLength = new PVector(screen.x*cmTopx, screen.y*cmTopx);  
 int ellipseR =20;
 PVector upp = new PVector(0, 0);
 PVector down = new PVector(0, 0);
@@ -51,6 +54,7 @@ boolean isRecording = false;
 boolean isReaded = false;
 
 void setup() {
+  println(wsOrignal.x,wsOrignal.y);
   portName = Serial.list()[3]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600);
   delay(1000);
@@ -71,8 +75,11 @@ void draw() {
   else if (isSwitch == 2) {
     if (mousePressed) {
       IKDraw();
+      //println("angle0:"+servoAngle[0],",angle1:"+servoAngle[1]);
+      values = angleMap(servoAngle, heightValues);
     }
-    values = angleMap(servoAngle, heightValues);
+    
+    
   } // Replay Point
   
 
@@ -82,7 +89,7 @@ void draw() {
     sendEvent(values);
     arrayCopy(values, preValues);
   }
-  motorAngle = readEvent();
+  //motorAngle = readEvent();
 }
 
 

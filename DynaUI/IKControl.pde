@@ -22,7 +22,7 @@
 //  } else if (x < 0 && y > 0) {
 //    //if(C<90) C=90;
 //    servoIKPos[0] =  180 - theta + B;                  // Find necessary angle. Add Correction
-//    servoIKPos[1] =  C - 90;                          // Find neceesary angle. Add Correction
+//    servoIKPos[1] =  C - 90;                          // Find neceesary angle. Add Corion
 //  } else if (x < 0 && y < 0) {
 //    //if(C<90) C=90;
 //    servoIKPos[0] =  180-theta-B;                   // Find necessary angle. Add Correction

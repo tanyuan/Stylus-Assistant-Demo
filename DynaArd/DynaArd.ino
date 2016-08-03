@@ -41,10 +41,10 @@ void setup() {
 void loop() {
   readEvent(pos);
 
-  if (!arrayCompare(pos, prePos)) {
-    sendEvent(pos);
-    arrayCopy(pos, prePos);
-  }
+//  if (!arrayCompare(pos, prePos)) {
+//    sendEvent(pos);
+//    arrayCopy(pos, prePos);
+//  }
 
   //  Dynamixel.moveSpeed(1, angleProtect(0, pos[0]), 200);
   Dynamixel.moveSpeed(1, angleProtect(0, angleProtect(0, pos[0])),100);
