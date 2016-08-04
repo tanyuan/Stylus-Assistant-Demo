@@ -42,7 +42,7 @@ void loop() {
   readEvent(pos);
 
   if (!arrayCompare(pos, prePos)) {
-    sendEvent(pos);
+    sendEvent(readPos);
     arrayCopy(pos, prePos);
   }
 
@@ -52,10 +52,10 @@ void loop() {
   Dynamixel.moveSpeed(3, angleProtect(2, angleProtect(2, pos[2])),200);
   Dynamixel.moveSpeed(4, angleProtect(3, angleProtect(3, 1020-pos[2])),200);
 
-  //  readPos[0] = Dynamixel.readPosition(1);
-  //  readPos[1] = Dynamixel.readPosition(2);
-  // readPos[2] = Dynamixel.readPosition(3);
-  //    readPos[3] =Dynamixel.readPosition(4);
+    readPos[0] = Dynamixel.readPosition(1);
+    readPos[1] = Dynamixel.readPosition(2);
+   readPos[2] = Dynamixel.readPosition(3);
+      readPos[3] =Dynamixel.readPosition(4);
 }
 
 
