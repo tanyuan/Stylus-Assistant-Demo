@@ -34,7 +34,6 @@ void refresh() {
   //ellipse(center.x, center.y, workSpaceR, workSpaceR );
   stroke(2);
   noFill();
-  println(wsOrignal.x+","+wsOrignal.y+","+wsLength.x+","+wsLength.y);
   rect(wsOrignal.x, wsOrignal.y, wsLength.x, wsLength.y);
 }
 

@@ -64,7 +64,7 @@ void IKDraw() {
 int[] angleMap(float [] ikAngle, int zAngle) {
   int[] dynaAngle = initState;
   //printArray(initState) ;
-  dynaAngle[0] = int(map(ikAngle[0]-180, -150, 150, 1023, 0));
+  dynaAngle[0] = int(map(ikAngle[0]-180, -150, 150, 0, 1023));
   dynaAngle[1] = int(map(ikAngle[1], -150, 150, 0, 1023));
   //println("dynaAngle:"+dynaAngle[0]+",dynaAngle[1]:"+dynaAngle[1]);
   dynaAngle[2] = zAngle;
