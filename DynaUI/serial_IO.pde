@@ -10,8 +10,9 @@ void sendEvent(int data[]) {
     //println("i is "+i+" : "+data[i]);
     myPort.write(data[i]/256);
     myPort.write(data[i]%256);
-    println("data"+i + ":"+data[i]);
+    
   }
+  println("data input "+data[0]+","+data[1]);
 }
 
 int[] readEvent() {
@@ -27,6 +28,7 @@ int[] readEvent() {
         
       }
     }
+    println("data output "+data[0]+","+data[1]);
   }
   return data;
 }

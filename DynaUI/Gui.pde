@@ -47,7 +47,7 @@ void Gui() {
 
   //For Record and Read File Name input
   cp5.addTextlabel("record")
-    .setText("Record File Name(S:Save):")
+    .setText("Record File Name(W:New,S:Save):")
       .setPosition(500, 100)
         .setColorValue(black)
           .setFont(createFont("Georgia", 14))
@@ -61,7 +61,7 @@ void Gui() {
             ;
 
   cp5.addTextlabel("read")
-    .setText("Read File Name (3:path,4:point):")
+    .setText("Read File Name (3:point,4:path):")
       .setPosition(500, 130+offSetY)
         .setColorValue(black)
           .setFont(createFont("Georgia", 14))

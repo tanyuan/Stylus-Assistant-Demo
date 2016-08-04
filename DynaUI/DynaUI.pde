@@ -20,7 +20,7 @@ int isSwitch = 1;
 
 PVector orignal = new PVector(600, 750);
 PVector screen = new PVector(19.7,14.9);
-PVector wsOrig = new PVector(-12.4,19.7);  // workspace original  (cm)
+PVector wsOrig = new PVector(-12.4,20.3);  // workspace original  (cm)
 float cmTopx = 25;
 PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x,orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
 
@@ -82,6 +82,60 @@ void draw() {
     
   } // Replay Point
   
+  
+  else if (isSwitch == 3) {
+    if (!isReaded) {
+      readFileName = readTxtField.getText();
+      data = Reading(readFileName);
+      isReaded = true;
+    }
+    if (pointIdx<data.length-1 && pointIdx>=0) {
+      println(data[pointIdx]+" , "+data[pointIdx+1]);
+      servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength,mdLength);
+      values = angleMap(servoAngle, int(data[pointIdx+2]));
+    } else {
+      pointIdx = 0;
+    }
+  }
+  // Replay Path
+  else if (isSwitch == 4) {
+    if (!isReaded) {
+      readFileName = readTxtField.getText();
+      data = Reading(readFileName);
+      isReaded = true;
+    }
+    if (pointIdx<data.length-1 && pointIdx>=0) {
+      println("---"+pointIdx);
+      servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength,mdLength);
+      values = angleMap(servoAngle, int(data[pointIdx+2]));
+      pointIdx = pointIdx +3;
+
+      printArray(values);
+    } else {
+      pointIdx = 0;
+      delay(1000);
+    }
+  }
+
+  // Write Path
+  else if (isSwitch == 5) {
+    if (mousePressed) {
+      IKDraw();
+      values = angleMap(servoAngle, heightValues);
+      if (isRecording) {
+        Recording3(readPath, upp.x, upp.y, heightValues);
+      }
+    }
+  }
+
+
+  // Write Point
+  else if (isSwitch == 6) {
+    if (mousePressed) {
+      IKDraw();
+    }
+    values = angleMap(servoAngle, heightValues);
+  }
 
 
 
@@ -89,7 +143,7 @@ void draw() {
     sendEvent(values);
     arrayCopy(values, preValues);
   }
-  //motorAngle = readEvent();
+  motorAngle = readEvent();
 }
 
 

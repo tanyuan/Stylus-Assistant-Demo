@@ -103,7 +103,7 @@ void keyReleased() {
         appState =appState + " : New TxtFile is "+writeFileName+".txt";
         println("=====New File=====");
       }
-      if (key == 'n') {
+      if (key == 'n' || key == 'N') {
         pointIdx = pointIdx +3;
         Recording3(readPath, upp.x, upp.y, heightValues);
         println("new point");
@@ -125,14 +125,14 @@ void keyReleased() {
     if (key == 'v') {
       heightValues = heightValues-10;
     }
+    
+    
     if (isSwitch ==3) {
       if (key == 'n') {
         pointIdx = pointIdx +3;
         println(pointIdx);
       }
     }
-
-
 
 
     if (key == 'b') {
