@@ -23,16 +23,17 @@ PVector screen = new PVector(19.7,14.9);
 PVector wsOrig = new PVector(-12.4,20.3);  // workspace original  (cm)
 float cmTopx = 25;
 PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x,orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
+PVector wsLength = new PVector(screen.x*cmTopx, screen.y*cmTopx); 
+PVector sampleInterval = new PVector(wsLength.x/8,wsLength.y/6);
 
-PVector wsLength = new PVector(screen.x*cmTopx, screen.y*cmTopx);  
 int ellipseR =20;
 PVector upp = new PVector(0, 0);
 PVector down = new PVector(0, 0);
 
 // Parameters of Arm robot
-float uppL = 20;
-float mdL = 2.2;
-float downL = 19.3;
+float uppL = 19.3;  //Root arm  19.3
+float mdL = 2.55;
+float downL = 20.3;   //Fore Arm  20
 float workSpaceR = (uppL+downL)*2*cmTopx;
 float uppLength = uppL*cmTopx;
 float downLength = downL*cmTopx;
@@ -136,14 +137,16 @@ void draw() {
     }
     values = angleMap(servoAngle, heightValues);
   }
+  
 
 
 
   if (!arrayCompare(values, preValues)) {
     sendEvent(values);
     arrayCopy(values, preValues);
+    motorAngle = readEvent();
   }
-  motorAngle = readEvent();
+  
 }
 
 

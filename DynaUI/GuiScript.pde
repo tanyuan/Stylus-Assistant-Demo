@@ -35,6 +35,14 @@ void refresh() {
   stroke(2);
   noFill();
   rect(wsOrignal.x, wsOrignal.y, wsLength.x, wsLength.y);
+  //sample point 
+  fill(black);
+  for(int i = 0; i<4; i++){
+    for(int j = 0; j<3; j++){
+      ellipse(wsOrignal.x+sampleInterval.x*(1+2*i), wsOrignal.y+sampleInterval.y*(1+2*j), ellipseR/2, ellipseR/2);
+    }
+  }
+  
 }
 
 //======ShortCut Function
