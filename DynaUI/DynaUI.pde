@@ -103,6 +103,8 @@ void draw() {
     if (!isReaded) {
       readFileName = readTxtField.getText();
       data = Reading(readFileName);
+      float [] newData = TangentAngle(data);
+      exit();
       isReaded = true;
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
@@ -110,7 +112,6 @@ void draw() {
       servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength,mdLength);
       values = angleMap(servoAngle, int(data[pointIdx+2]));
       pointIdx = pointIdx +3;
-
       printArray(values);
     } else {
       pointIdx = 0;
@@ -118,13 +119,26 @@ void draw() {
     }
   }
 
-  // Write Path
+  // Write DynaFrame Path
   else if (isSwitch == 5) {
     if (mousePressed) {
       IKDraw();
+      //Prepare to sending values
       values = angleMap(servoAngle, heightValues);
       if (isRecording) {
         Recording3(readPath, upp.x, upp.y, heightValues);
+      }
+    }
+  }
+  
+  // Write DynaBase Path
+  else if (isSwitch == 7){
+    if(mousePressed){
+      IKDraw();
+      //Prepare to sending values
+      values = angleMap(servoAngle,heightValues);
+      if(isRecording){
+        Recording2(readPath, upp.x, upp.y);
       }
     }
   }
@@ -138,9 +152,11 @@ void draw() {
     values = angleMap(servoAngle, heightValues);
   }
   
+  
+  
 
 
-
+ // Sending data to arduino
   if (!arrayCompare(values, preValues)) {
     sendEvent(values);
     arrayCopy(values, preValues);

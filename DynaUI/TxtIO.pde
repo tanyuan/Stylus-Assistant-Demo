@@ -26,3 +26,11 @@ void Recording3(PrintWriter path, float x, float y, int z) {
   println("Recording:"+x+","+y+","+z);
 }
 
+void Recording2(PrintWriter path, float x, float y) {
+  path.print(x);  // Write the coordinate to the file
+  path.print(",");
+  path.print(y);
+  path.print(",");
+  println("Recording:"+x+","+y);
+}
+

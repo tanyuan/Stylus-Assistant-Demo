@@ -37,12 +37,11 @@ void refresh() {
   rect(wsOrignal.x, wsOrignal.y, wsLength.x, wsLength.y);
   //sample point 
   fill(black);
-  for(int i = 0; i<4; i++){
-    for(int j = 0; j<3; j++){
+  for (int i = 0; i<4; i++) {
+    for (int j = 0; j<3; j++) {
       ellipse(wsOrignal.x+sampleInterval.x*(1+2*i), wsOrignal.y+sampleInterval.y*(1+2*j), ellipseR/2, ellipseR/2);
     }
   }
-  
 }
 
 //======ShortCut Function
@@ -71,7 +70,6 @@ void keyReleased() {
       isSwitch = 4;
       isReaded = false;
       appState= "Path Replay Control";
-      
     }
 
     if (key == '5') {
@@ -87,6 +85,13 @@ void keyReleased() {
     }
 
 
+    if (key == '7') {
+      isSwitch = 7;
+      appState= "DynaBase Path Record Control";
+      //New Record File
+    }
+
+    // Record path
     if (isSwitch == 5) {
       if (key=='w'|| key =='W') {
         writeFileName = recordTxtField.getText();
@@ -102,6 +107,25 @@ void keyReleased() {
         appState = "Path Record Control: " +writeFileName+".txt saved";
       }
     }
+
+    // Record dynaBase Data
+    if (isSwitch == 7) {
+      if (key=='w'|| key =='W') {
+        writeFileName = recordTxtField.getText();
+        readPath = createWriter(writeFileName+".txt");
+        appState =appState + " : New TxtFile is "+writeFileName+".txt";
+        isRecording = true;
+        println("=====New File=====");
+      }
+      if (key =='S'|| key =='s') {
+        isRecording = false;
+        readPath.flush();  // Writes the remaining data to the file
+        readPath.close();  // Finishes2 the file
+        appState = "Path Record Control: " +writeFileName+".txt saved";
+        
+      }
+    }
+
 
 
     if (isSwitch == 6) {
@@ -133,8 +157,8 @@ void keyReleased() {
     if (key == 'v') {
       heightValues = heightValues-10;
     }
-    
-    
+
+
     if (isSwitch ==3) {
       if (key == 'n') {
         pointIdx = pointIdx +3;

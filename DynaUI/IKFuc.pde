@@ -8,9 +8,6 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
   float beta;       
   float[] servoIKPos = new float[2];  
   
-
-
-  
   A = sq(x)+sq(y);
   B = sq(l1)+sq(l);
   gamma = degrees(atan(l/l1));
@@ -29,12 +26,12 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
   } else if (x < 0 && y >=0) {
     servoIKPos[0] = 180-(phi - alpha - gamma);
     servoIKPos[1] = beta - 90 - gamma;
-  }
-  
-  
-  return servoIKPos;
-  
+  }  
+  return servoIKPos; 
 }
+
+
+
 
 
 void IKDraw() {
