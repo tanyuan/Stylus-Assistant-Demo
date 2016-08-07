@@ -1,10 +1,9 @@
-/* Sweep
-  by BARRAGAN <http://barraganstudio.com>
-  This example code is in the public domain.
+/**
+   For Dynamixel Control
+   by andy, 2016
+   Library:
+  http://austinlpalmer.com/Projects/Documentr/#/home
 
-  modified 8 Nov 2013
-  by Scott Fitzgerald
-  http://www.arduino.cc/en/Tutorial/Sweep
 */
 #define MOTORNUM 4
 
@@ -18,10 +17,12 @@ int readPos[MOTORNUM];
 int motorRange[MOTORNUM][2]  = {
   {100, 900},
   {230, 600},
+  {0,1023},
+  {0,1023},
   //{500,600},
   //{600,800},
-  {400, 768},
-  {300,550},
+  //{400, 768},
+  //{300,550},
 };
 
 
@@ -42,7 +43,7 @@ void loop() {
   readEvent(pos);
 
   if (!arrayCompare(pos, prePos)) {
-    sendEvent(readPos);
+    //sendEvent(readPos);
     arrayCopy(pos, prePos);
   }
 
@@ -52,10 +53,10 @@ void loop() {
   Dynamixel.moveSpeed(3, angleProtect(2, angleProtect(2, pos[2])),200);
   Dynamixel.moveSpeed(4, angleProtect(3, angleProtect(3, 1020-pos[2])),200);
 
-    readPos[0] = Dynamixel.readPosition(1);
-    readPos[1] = Dynamixel.readPosition(2);
-   readPos[2] = Dynamixel.readPosition(3);
-      readPos[3] =Dynamixel.readPosition(4);
+//    readPos[0] = Dynamixel.readPosition(1);
+//    readPos[1] = Dynamixel.readPosition(2);
+//   readPos[2] = Dynamixel.readPosition(3);
+//      readPos[3] =Dynamixel.readPosition(4);
 }
 
 

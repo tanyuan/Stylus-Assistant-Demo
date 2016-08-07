@@ -19,12 +19,12 @@ int[] initState0 = {
 int isSwitch = 1; 
 
 PVector orignal = new PVector(600, 750);
-PVector screen = new PVector(19.7,14.9);
-PVector wsOrig = new PVector(-12.4,20.3);  // workspace original  (cm)
+PVector screen = new PVector(19.7, 14.9);
+PVector wsOrig = new PVector(-12.4, 20.3);  // workspace original  (cm)
 float cmTopx = 25;
-PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x,orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
+PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x, orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
 PVector wsLength = new PVector(screen.x*cmTopx, screen.y*cmTopx); 
-PVector sampleInterval = new PVector(wsLength.x/8,wsLength.y/6);
+PVector sampleInterval = new PVector(wsLength.x/8, wsLength.y/6);
 
 int ellipseR =20;
 PVector upp = new PVector(0, 0);
@@ -38,9 +38,13 @@ float workSpaceR = (uppL+downL)*2*cmTopx;
 float uppLength = uppL*cmTopx;
 float downLength = downL*cmTopx;
 float mdLength = mdL*cmTopx;
+float rootL = sqrt(sq(uppLength)+sq(mdLength)); //root point to middle point
 
 float[] servoAngle = new float[2];
 float [] data = {
+  300, 300, 512
+};
+float [] tanData = {
   300, 300, 512
 };
 int pointIdx = 0;
@@ -49,13 +53,13 @@ PrintWriter readPath;
 PrintWriter writePath;
 String appState = "Slider Control";
 String readFileName  = "readPath";
-String writeFileName = "writePath";
+String writeFileName = "readPath";
 boolean isInputing = false;
 boolean isRecording = false;
 boolean isReaded = false;
 
 void setup() {
-  println(wsOrignal.x,wsOrignal.y);
+  println(wsOrignal.x, wsOrignal.y);
   portName = Serial.list()[3]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600);
   delay(1000);
@@ -79,11 +83,9 @@ void draw() {
       //println("angle0:"+servoAngle[0],",angle1:"+servoAngle[1]);
       values = angleMap(servoAngle, heightValues);
     }
-    
-    
   } // Replay Point
-  
-  
+
+
   else if (isSwitch == 3) {
     if (!isReaded) {
       readFileName = readTxtField.getText();
@@ -92,7 +94,7 @@ void draw() {
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
       println(data[pointIdx]+" , "+data[pointIdx+1]);
-      servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength,mdLength);
+      servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength, mdLength);
       values = angleMap(servoAngle, int(data[pointIdx+2]));
     } else {
       pointIdx = 0;
@@ -103,18 +105,19 @@ void draw() {
     if (!isReaded) {
       readFileName = readTxtField.getText();
       data = Reading(readFileName);
-      float [] newData = TangentAngle(data);
+      tanData = TangentAngle(data);
       exit();
       isReaded = true;
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
-      println("---"+pointIdx);
-      servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength,mdLength);
-      values = angleMap(servoAngle, int(data[pointIdx+2]));
+      //println("---"+pointIdx);
+      servoAngle = IKControl(tanData[pointIdx], tanData[pointIdx+1], uppLength, downLength, mdLength);
+      values = angleMap(servoAngle, int(tanData[pointIdx+2]));
       pointIdx = pointIdx +3;
-      printArray(values);
+      println("a0:"+values[0]+",a1:"+values[1]+",a2:"+values[2]);
     } else {
       pointIdx = 0;
+      println("-----");
       delay(1000);
     }
   }
@@ -130,14 +133,14 @@ void draw() {
       }
     }
   }
-  
+
   // Write DynaBase Path
-  else if (isSwitch == 7){
-    if(mousePressed){
+  else if (isSwitch == 7) {
+    if (mousePressed) {
       IKDraw();
       //Prepare to sending values
-      values = angleMap(servoAngle,heightValues);
-      if(isRecording){
+      values = angleMap(servoAngle, heightValues);
+      if (isRecording) {
         Recording2(readPath, upp.x, upp.y);
       }
     }
@@ -151,18 +154,17 @@ void draw() {
     }
     values = angleMap(servoAngle, heightValues);
   }
-  
-  
-  
 
 
- // Sending data to arduino
+
+
+
+  // Sending data to arduino
   if (!arrayCompare(values, preValues)) {
     sendEvent(values);
     arrayCopy(values, preValues);
     motorAngle = readEvent();
   }
-  
 }
 
 

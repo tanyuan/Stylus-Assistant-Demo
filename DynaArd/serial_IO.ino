@@ -1,6 +1,6 @@
 /**
    For aruidno IO
-   by andy, 2015
+   by andy, 2016
    Library:
    https://processing.org/reference/libraries/serial/
 */

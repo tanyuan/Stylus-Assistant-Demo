@@ -16,6 +16,12 @@ float[] TangentAngle(float[] data) {
   float sumXY;   // sum of x*y
   float sumYY;   // sum of y*y 
   float a0, a1;
+
+  //motors parameters
+  float[] motorAngle = new float[2];
+  float[] middlePoint = new float[2];
+  float foreArmAngle;
+
   //  newData[0] = data[0];
   //  newData[1] = data[1];
   //  newData[2] = 0;//0 is the index of orignal data
@@ -48,13 +54,20 @@ float[] TangentAngle(float[] data) {
       }
       float xBar = sumX / pn;  
       float yBar = sumY / pn;  
-      a1 = (pn * sumXY - sumX * sumY) / (pn * sumXX - sumX  * sumX);
+      float YValue = pn * sumXY - sumX * sumY;
+      float XValue = pn * sumXX - sumX  * sumX;
+      a1 = YValue / XValue;
       //a0 = yBar - a1 * xBar;
       float tAngle = degrees(atan(a1));
       println(newData.length+",i:"+i+",a1:"+a1+",tanAngle:"+tAngle+",flag:"+newData[i*3+2]);
       // Check tAngle is NaN
-      if(tAngle!=tAngle ){
-        tAngle = 90;
+      if (tAngle!=tAngle ) {
+        if(YValue>0){
+          tAngle = -90;
+        }else {
+          tAngle = 90;
+        }
+        
       }
       tangentAngle = append(tangentAngle, tAngle) ;
       tangentAngle = append(tangentAngle, newData[i*3+2]) ;
@@ -69,8 +82,16 @@ float[] TangentAngle(float[] data) {
       tIndex = tIndex +1;
     }
     tanData[3*i+2] = tangentAngle[2*tIndex+1];
-    println("i:"+i+",tIndex:"+tIndex+",tanDataIndex:"+3*i+2+",x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",angle:"+tanData[3*i+2]);
+    motorAngle = IKControl(tanData[3*i], tanData[3*i+1], uppLength, downLength, mdLength);
+    middlePoint[0] = rootL*cos(radians(motorAngle[0]));
+    middlePoint[1] = rootL*sin(radians(motorAngle[0]));
+    foreArmAngle = degrees(atan( (tanData[3*i+1]-middlePoint[1])/(tanData[3*i]-middlePoint[0]) ));
+    float debugAngle = tanData[3*i+2];
+    tanData[3*i+2] = -abs(tanData[3*i+2]-foreArmAngle);
+    println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",foreAngle:"+ foreArmAngle+",tanAngle:"+debugAngle+",endAngle:"+tanData[3*i+2]);
+    //println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",mx:"+middlePoint[0]+",my:"+middlePoint[1]+",foreAngle:"+ foreArmAngle+",tanAngle:"+tanData[3*i+2]+",endAngle:"+endAngle);
+    //println("i:"+i+",tIndex:"+tIndex+",tanDataIndex:"+3*i+2+",x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",angle:"+tanData[3*i+2]);
   }
-  return newData;
+  return tanData;
 }
 
