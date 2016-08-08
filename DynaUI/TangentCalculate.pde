@@ -82,13 +82,17 @@ float[] TangentAngle(float[] data) {
       tIndex = tIndex +1;
     }
     tanData[3*i+2] = tangentAngle[2*tIndex+1];
+    
     motorAngle = IKControl(tanData[3*i], tanData[3*i+1], uppLength, downLength, mdLength);
-    middlePoint[0] = rootL*cos(radians(motorAngle[0]));
-    middlePoint[1] = rootL*sin(radians(motorAngle[0]));
-    foreArmAngle = degrees(atan( (tanData[3*i+1]-middlePoint[1])/(tanData[3*i]-middlePoint[0]) ));
     float debugAngle = tanData[3*i+2];
-    tanData[3*i+2] = -abs(tanData[3*i+2]-foreArmAngle);
-    println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",foreAngle:"+ foreArmAngle+",tanAngle:"+debugAngle+",endAngle:"+tanData[3*i+2]);
+    
+    //motorAngle[0] is Phi ; motorAngle[1] is theta
+
+      tanData[3*i+2] = tanData[3*i+2]+90-motorAngle[0]-motorAngle[1];
+    
+    
+    //tanData[3*i+2] = -abs(tanData[3*i+2]-foreArmAngle);
+    println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",tanAngle:"+debugAngle+",phi:"+motorAngle[0]+",theta:"+motorAngle[1]+",endAngle:"+tanData[3*i+2]);
     //println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",mx:"+middlePoint[0]+",my:"+middlePoint[1]+",foreAngle:"+ foreArmAngle+",tanAngle:"+tanData[3*i+2]+",endAngle:"+endAngle);
     //println("i:"+i+",tIndex:"+tIndex+",tanDataIndex:"+3*i+2+",x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",angle:"+tanData[3*i+2]);
   }

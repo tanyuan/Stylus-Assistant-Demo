@@ -31,26 +31,6 @@ float[] IKControl(float x, float y, float l1, float l2, float l ) {
 }
 
 
-float[] IKAngle(float x, float y, float l1, float l2, float l ) {
-  // Angle Variables
-  float A;            //distance between end and root
-  float B;            //upp arm length
-  float gamma;        //offset angle of upp arm
-  float phi;          //end point angle
-  float alpha;        
-  float beta;       
-  float[] ikAngles = new float[2];  
-
-  A = sq(x)+sq(y);
-  B = sq(l1)+sq(l);
-  gamma = degrees(atan(l/l1));
-  phi = degrees(atan( abs(y)/abs(x) ));
-  ikAngles[0] = degrees(acos( (A+B-sq(l2)) / (2*sqrt(A)*sqrt(B)) ));
-  ikAngles[1] = degrees(acos( (B+sq(l2)-A) / (2*sqrt(B)*l2) ));
- 
-  return ikAngles;
-}
-
 
 
 void IKDraw() {

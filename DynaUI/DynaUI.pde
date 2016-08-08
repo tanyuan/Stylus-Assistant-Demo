@@ -106,7 +106,7 @@ void draw() {
       readFileName = readTxtField.getText();
       data = Reading(readFileName);
       tanData = TangentAngle(data);
-      exit();
+      //exit();
       isReaded = true;
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
