@@ -1,15 +1,16 @@
 float[] Reading(String fileName) {
   float[] data;
   float[] preData = {
-    300, 300,512
+    512, 512,0
   };
   String[] stuff = loadStrings(fileName+".txt");
   println(readFileName+".txt");
   //printArray(data);
-  if (stuff == null) {
+  if (stuff.length == 0) {
     data = preData;
-    //data[1] = 575;
+    println("File:"+fileName+" is null.");
   } else {
+    println(stuff);
     data = float(split(stuff[0], ','));
   }
   return data;
