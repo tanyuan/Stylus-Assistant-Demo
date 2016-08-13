@@ -72,7 +72,7 @@ void Gui() {
             ;
 
   cp5.addTextlabel("read")
-    .setText("Read File Name (3:point,4:path):")
+    .setText("Read File Name (4:point,6,7:path):")
       .setPosition(420, 130+offSetY)
         .setColorValue(black)
           .setFont(createFont("Georgia", 14))

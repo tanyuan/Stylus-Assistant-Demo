@@ -37,9 +37,14 @@ void refresh() {
   rect(wsOrignal.x, wsOrignal.y, wsLength.x, wsLength.y);
   //sample point 
   fill(black);
+ // println("------");
+  //mouseX-orignal.x, orignal.y-mouseY
   for (int i = 0; i<4; i++) {
     for (int j = 0; j<3; j++) {
-      ellipse(wsOrignal.x+sampleInterval.x*(1+2*i), wsOrignal.y+sampleInterval.y*(1+2*j), ellipseR/2, ellipseR/2);
+      float pointX = wsOrignal.x+sampleInterval.x*(1+2*i);
+      float pointY =  wsOrignal.y+sampleInterval.y*(1+2*j);
+      ellipse(pointX, pointY, ellipseR/2, ellipseR/2);
+      //println("x :"+(pointX-orignal.x)+",y:"+(orignal.y-pointY));
     }
   }
 }

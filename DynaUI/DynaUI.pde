@@ -9,6 +9,8 @@ float uppL = 19.3;                          //Root arm  19.3 (cm)
 float mdL = 2.55;                           //Offset arm 2.55 (cm)
 float downL = 20.3;                         //Fore Arm  20  (cm)
 byte motorNum = 4;
+float cmTopx = 25;                          // Cm to Px 
+PVector orignal = new PVector(600, 750);    // Motor Root Positon in GUI
 //---------Motor Calibration Setting END-------
 
 int a ;
@@ -27,8 +29,6 @@ int[] initState0 = {
 int isSwitch = 1; 
 
 //----- GUI Parameters Setting-------
-PVector orignal = new PVector(600, 750);
-float cmTopx = 25;
 PVector wsOrignal = new PVector(wsOrig.x*cmTopx+orignal.x, orignal.y-wsOrig.y*cmTopx);  //Rect WorkSpace
 PVector wsLength = new PVector(screen.x*cmTopx, screen.y*cmTopx); 
 PVector sampleInterval = new PVector(wsLength.x/8, wsLength.y/6);
@@ -37,7 +37,6 @@ int ellipseR =20;
 
 PVector upp = new PVector(0, 0);
 PVector down = new PVector(0, 0);
-
 // Parameters of Arm robot
 float workSpaceR = (uppL+downL)*2*cmTopx;
 float uppLength = uppL*cmTopx;
