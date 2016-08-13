@@ -37,18 +37,29 @@ void Gui() {
 
 
   //Reset Button
-  cp5.addButton("Reset")
-    .setValue(0)
-      .setPosition(500, 50)
-        .setSize(60, 40)
-          ;
+  //  cp5.addButton("Reset")
+  //    .setValue(0)
+  //      .setPosition(500, 50)
+  //        .setSize(60, 40)
+  //          ;
 
-
-
+  //--- Document ----
+  cp5.addTextlabel("Document1")
+    .setText("1:Slider; 2:IK; 3:Point Record; 4: Point Replay")
+      .setPosition(420, 40)
+        .setColorValue(black)
+          .setFont(createFont("Georgia", 14))
+            ;
+  cp5.addTextlabel("Document2")
+    .setText("5:Path Record; 6:Base Replay; 7:Frame Replay")
+      .setPosition(420, 60)
+        .setColorValue(black)
+          .setFont(createFont("Georgia", 14))
+            ;
   //For Record and Read File Name input
   cp5.addTextlabel("record")
     .setText("Record File Name(W:New,S:Save):")
-      .setPosition(500, 100)
+      .setPosition(420, 100)
         .setColorValue(black)
           .setFont(createFont("Georgia", 14))
             ;
@@ -62,7 +73,7 @@ void Gui() {
 
   cp5.addTextlabel("read")
     .setText("Read File Name (3:point,4:path):")
-      .setPosition(500, 130+offSetY)
+      .setPosition(420, 130+offSetY)
         .setColorValue(black)
           .setFont(createFont("Georgia", 14))
             ;

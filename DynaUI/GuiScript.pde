@@ -16,7 +16,7 @@ void GuiScript() {
   text(values[0], 400, 20);
   //   isReset = cp5.getController("Reset").isPressed();
 
-  txtLableState.setText(appState);
+  txtLableState.setText(appState+shortCutHint);
   if (recordTxtField.isFocus()||readTxtField.isFocus()) {
     isInputing = true;
   } else {
@@ -64,6 +64,7 @@ void keyReleased() {
       isSwitch = 3;
       isReaded = false;
       appState= "Point Record Control";
+      shortCutHint= "(Press 'w' to new file)";
       //initSnake();
     }
     
@@ -73,6 +74,7 @@ void keyReleased() {
         writeFileName = recordTxtField.getText();
         readPath = createWriter(writeFileName+".txt");
         appState =appState + " : New TxtFile is "+writeFileName+".txt";
+        shortCutHint= "(Press 'n' to record point; Press 's' to save file)";
         println("=====New File=====");
       }
       if (key == 'n' || key == 'N') {
@@ -86,6 +88,7 @@ void keyReleased() {
         readPath.flush();  // Writes the remaining data to the file
         readPath.close();  // Finishes2 the file
         appState = "Path Record Control: " +writeFileName+".txt saved";
+        shortCutHint= "";
       }
     }
 
@@ -94,7 +97,7 @@ void keyReleased() {
       isSwitch = 4;
       isReaded = false;
       appState= "Point Replay Control";
-      // Action "press "n" to next point"
+      shortCutHint= "(Press 'n' to next Point; Press 'b' to last Point)";
     }
     if (isSwitch == 4) {
       if (key == 'n') {
@@ -110,6 +113,7 @@ void keyReleased() {
     if (key == '5') {
       isSwitch = 5;
       appState= "Path Record Control";
+      shortCutHint= "(Press 'w' to new file)";
       //New Record File
     }
    // Record path
@@ -117,6 +121,7 @@ void keyReleased() {
       if (key=='w'|| key =='W') {
         writeFileName = recordTxtField.getText();
         readPath = createWriter(writeFileName+".txt");
+        shortCutHint= "(Press 's' to save file)";
         appState =appState + " : New TxtFile is "+writeFileName+".txt";
         isRecording = true;
         println("=====New File=====");
@@ -126,6 +131,7 @@ void keyReleased() {
         readPath.flush();  // Writes the remaining data to the file
         readPath.close();  // Finishes2 the file
         appState = "Path Record Control: " +writeFileName+".txt saved";
+        shortCutHint= "";
       }
     }
     
