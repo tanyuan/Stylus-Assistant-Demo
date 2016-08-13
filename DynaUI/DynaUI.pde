@@ -5,15 +5,15 @@ Serial myPort;  // Create object from Serial class
 //---------Motor Calibration Setting-----------
 PVector screen = new PVector(19.7, 14.9);   //Screen Size (cm)
 PVector wsOrig = new PVector(-12.4, 20.3);  // workspace original  (cm)
-float uppL = 19.3;  //Root arm  19.3
-float mdL = 2.55;
-float downL = 20.3;   //Fore Arm  20
+float uppL = 19.3;                          //Root arm  19.3 (cm)
+float mdL = 2.55;                           //Offset arm 2.55 (cm)
+float downL = 20.3;                         //Fore Arm  20  (cm)
 byte motorNum = 4;
 //---------Motor Calibration Setting END-------
 
 int a ;
 boolean isReset;
-int values[] = new int[motorNum];  //for serial output data
+int values[] = new int[motorNum];           //for serial output data
 int preValues[] = new int[motorNum];
 int motorAngle[]=new int[motorNum];
 int heightValues = 0;
@@ -57,6 +57,7 @@ int pointIdx = 0;
 PrintWriter readPath;
 PrintWriter writePath;
 String appState = "Slider Control";
+String shortCutHint = "";
 String readFileName  = "readPath";
 String writeFileName = "readPath";
 boolean isInputing = false;
@@ -115,7 +116,7 @@ void draw() {
       pointIdx = 0;
     }
   }
-  
+
   // Write Path
   else if (isSwitch == 5) {
     if (mousePressed) {
@@ -127,8 +128,8 @@ void draw() {
       }
     }
   }
-  
-  
+
+
   // Replay DynaBase Path
   else if (isSwitch == 6) {
     if (!isReaded) {
