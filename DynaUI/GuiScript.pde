@@ -59,76 +59,16 @@ void keyReleased() {
       appState= "IK Control";
       //initSnake();
     }
+//------Point Record Control---------------
     if (key == '3') {
       isSwitch = 3;
       isReaded = false;
-      appState= "Point Replay Control";
+      appState= "Point Record Control";
       //initSnake();
     }
-
-    if (key == '4') {
-      isSwitch = 4;
-      isReaded = false;
-      appState= "Path Replay Control";
-    }
-
-    if (key == '5') {
-      isSwitch = 5;
-      appState= "Path Record Control";
-      //New Record File
-    }
-
-    if (key == '6') {
-      isSwitch = 6;
-      appState= "Point Record Control";
-      //New Record File
-    }
-
-
-    if (key == '7') {
-      isSwitch = 7;
-      appState= "DynaBase Path Record Control";
-      //New Record File
-    }
-
-    // Record path
-    if (isSwitch == 5) {
-      if (key=='w'|| key =='W') {
-        writeFileName = recordTxtField.getText();
-        readPath = createWriter(writeFileName+".txt");
-        appState =appState + " : New TxtFile is "+writeFileName+".txt";
-        isRecording = true;
-        println("=====New File=====");
-      }
-      if (key =='S'|| key =='s') {
-        isRecording = false;
-        readPath.flush();  // Writes the remaining data to the file
-        readPath.close();  // Finishes2 the file
-        appState = "Path Record Control: " +writeFileName+".txt saved";
-      }
-    }
-
-    // Record dynaBase Data
-    if (isSwitch == 7) {
-      if (key=='w'|| key =='W') {
-        writeFileName = recordTxtField.getText();
-        readPath = createWriter(writeFileName+".txt");
-        appState =appState + " : New TxtFile is "+writeFileName+".txt";
-        isRecording = true;
-        println("=====New File=====");
-      }
-      if (key =='S'|| key =='s') {
-        isRecording = false;
-        readPath.flush();  // Writes the remaining data to the file
-        readPath.close();  // Finishes2 the file
-        appState = "Path Record Control: " +writeFileName+".txt saved";
-        
-      }
-    }
-
-
-
-    if (isSwitch == 6) {
+    
+    // Record Point
+    if (isSwitch == 3) {
       if (key=='w'|| key =='W') {
         writeFileName = recordTxtField.getText();
         readPath = createWriter(writeFileName+".txt");
@@ -149,7 +89,59 @@ void keyReleased() {
       }
     }
 
+// -------Point Replay Control-------------
+    if (key == '4') {
+      isSwitch = 4;
+      isReaded = false;
+      appState= "Point Replay Control";
+      // Action "press "n" to next point"
+    }
+    if (isSwitch == 4) {
+      if (key == 'n') {
+        pointIdx = pointIdx +3;
+      }
+      if (key == 'b') {
+        pointIdx = pointIdx -3;
+      }
+    }
 
+
+// -------Path Record Control-------------
+    if (key == '5') {
+      isSwitch = 5;
+      appState= "Path Record Control";
+      //New Record File
+    }
+   // Record path
+    if (isSwitch == 5) {
+      if (key=='w'|| key =='W') {
+        writeFileName = recordTxtField.getText();
+        readPath = createWriter(writeFileName+".txt");
+        appState =appState + " : New TxtFile is "+writeFileName+".txt";
+        isRecording = true;
+        println("=====New File=====");
+      }
+      if (key =='S'|| key =='s') {
+        isRecording = false;
+        readPath.flush();  // Writes the remaining data to the file
+        readPath.close();  // Finishes2 the file
+        appState = "Path Record Control: " +writeFileName+".txt saved";
+      }
+    }
+    
+// -------DynaBase Path Replay Control-------------    
+    if (key == '6') {
+      isSwitch = 6;
+      appState= "DynaBase Path Replay Control";
+      //New Record File
+    }
+
+// -------DynaFrame Path Replay Control------------- 
+    if (key == '7') {
+      isSwitch = 7;
+      appState= "Dynaframe Path Replay Control";
+      //New Record File
+    }
 
     if (key == 'f') {
       heightValues = heightValues+10;
@@ -157,25 +149,8 @@ void keyReleased() {
     if (key == 'v') {
       heightValues = heightValues-10;
     }
-
-
-    if (isSwitch ==3) {
-      if (key == 'n') {
-        pointIdx = pointIdx +3;
-        println(pointIdx);
-      }
-    }
-
-
-    if (key == 'b') {
-      if (isSwitch ==3) {
-        pointIdx = pointIdx -2;
-        println(pointIdx);
-      }
-    }
   }
 }
-
 
 
 void flowIK(int[] data) {

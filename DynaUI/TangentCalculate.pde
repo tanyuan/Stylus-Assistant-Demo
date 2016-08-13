@@ -62,12 +62,11 @@ float[] TangentAngle(float[] data) {
       println(newData.length+",i:"+i+",a1:"+a1+",tanAngle:"+tAngle+",flag:"+newData[i*3+2]);
       // Check tAngle is NaN
       if (tAngle!=tAngle ) {
-        if(YValue>0){
+        if (YValue>0) {
           tAngle = -90;
-        }else {
+        } else {
           tAngle = 90;
         }
-        
       }
       tangentAngle = append(tangentAngle, tAngle) ;
       tangentAngle = append(tangentAngle, newData[i*3+2]) ;
@@ -82,20 +81,43 @@ float[] TangentAngle(float[] data) {
       tIndex = tIndex +1;
     }
     tanData[3*i+2] = tangentAngle[2*tIndex+1];
-    
+
     motorAngle = IKControl(tanData[3*i], tanData[3*i+1], uppLength, downLength, mdLength);
     float debugAngle = tanData[3*i+2];
-    
-    //motorAngle[0] is Phi ; motorAngle[1] is theta
 
-      tanData[3*i+2] = tanData[3*i+2]+90-motorAngle[0]-motorAngle[1];
-    
-    
-    //tanData[3*i+2] = -abs(tanData[3*i+2]-foreArmAngle);
+    //motorAngle[0] is Phi ; motorAngle[1] is theta
+    tanData[3*i+2] = tanData[3*i+2]+90-motorAngle[0]-motorAngle[1];
     println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",tanAngle:"+debugAngle+",phi:"+motorAngle[0]+",theta:"+motorAngle[1]+",endAngle:"+tanData[3*i+2]);
-    //println("x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",mx:"+middlePoint[0]+",my:"+middlePoint[1]+",foreAngle:"+ foreArmAngle+",tanAngle:"+tanData[3*i+2]+",endAngle:"+endAngle);
-    //println("i:"+i+",tIndex:"+tIndex+",tanDataIndex:"+3*i+2+",x:"+tanData[3*i]+",y:"+tanData[3*i+1]+",angle:"+tanData[3*i+2]);
   }
   return tanData;
+}
+
+
+
+//Add 3d dimension of DynaFrame 
+float[] AddZDimension(float[] data) {
+  float[] zData = data;
+  for (int i=2; i< (data.length-1)/3; i++) {
+    //x: data[3*i] y: data[3*i+1]
+    float delta = sqrt( sq(data[3*i+1]-data[3*(i-1)+1]) +sq(data[3*i]-data[3*(i-1)]) );
+    //println("x("+3*i+"):"+data[3*i]+",y("+(3*i+1)+"):"+data[3*i+1]+",z:"+zData[3*i+2] +",delta:"+delta);
+    // when dalta >100, is the another stroke
+    if (delta>100) {
+      //control the height of dyanFrame
+      for (int j = 0; j<40; j++) {
+        zData[3*(i-(40-j))+2] = j/2;
+      }
+      for (int j = 0; j<40; j++) {
+        zData[3*(i+j)+2] = (40-j)/2;
+      }
+      // println("x("+3*i+"):"+zData[3*i]+",y("+(3*i+1)+"):"+zData[3*i+1]+",z:"+zData[3*i+2]);
+    }
+  }
+
+  //println("---");
+  for (int i=2; i< (data.length-1)/3; i++) {
+    println("x("+3*i+"):"+zData[3*i]+",y("+(3*i+1)+"):"+zData[3*i+1]+",z:"+zData[3*i+2]);
+  }
+  return data;
 }
 

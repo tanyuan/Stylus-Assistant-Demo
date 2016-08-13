@@ -54,7 +54,7 @@ void IKDraw() {
   float foreArmAngle = degrees(atan( (down.y-upp.y)/(down.x-upp.x) ));
   //Middle Point Drawing
   ellipse(down.x+orignal.x, orignal.y-down.y, ellipseR, ellipseR);
-  println("upp.x:"+upp.x+",upp.y:"+upp.y+",down.x:"+down.x+",down.y:"+down.y+",angle:"+foreArmAngle);
+  //println("upp.x:"+upp.x+",upp.y:"+upp.y+",down.x:"+down.x+",down.y:"+down.y+",angle:"+foreArmAngle);
 }
 
 
@@ -63,12 +63,14 @@ int[] angleMap(float [] ikAngle, int zAngle) {
   //printArray(initState) ;
   dynaAngle[0] = int(map(ikAngle[0]-180, -150, 150, 0, 1023));
   dynaAngle[1] = int(map(ikAngle[1], -150, 150, 0, 1023));
-  //println("dynaAngle:"+dynaAngle[0]+",dynaAngle[1]:"+dynaAngle[1]);
+  
   dynaAngle[2] = int(map(zAngle, -150, 150, 0, 1023));
-//  dynaAngle[2] = zAngle;
+  //println("dynaAngle:"+dynaAngle[0]+",dynaAngle[1]:"+dynaAngle[1]+",daynaAngle[2]:"+dynaAngle[2]);
+  //dynaAngle[2] = zAngle;
 //  dynaAngle[3] = zAngle; 
   return dynaAngle;
 }
+
 
 
 

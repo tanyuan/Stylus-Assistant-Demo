@@ -7,7 +7,7 @@ boolean isReset;
 int values[] = new int[motorNum];  //for serial output data
 int preValues[] = new int[motorNum];
 int motorAngle[]=new int[motorNum];
-int heightValues = 512;
+int heightValues = 0;
 String portName;
 int[] initState = {
   512, 512, 512, 512
@@ -83,25 +83,49 @@ void draw() {
       //println("angle0:"+servoAngle[0],",angle1:"+servoAngle[1]);
       values = angleMap(servoAngle, heightValues);
     }
-  } // Replay Point
+  } 
 
 
+  // Write Point
   else if (isSwitch == 3) {
+    if (mousePressed) {
+      IKDraw();
+      values = angleMap(servoAngle, heightValues);
+    }
+  }
+
+
+
+  // Replay Point
+  else if (isSwitch == 4) {
     if (!isReaded) {
       readFileName = readTxtField.getText();
       data = Reading(readFileName);
       isReaded = true;
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
-      println(data[pointIdx]+" , "+data[pointIdx+1]);
       servoAngle = IKControl(data[pointIdx], data[pointIdx+1], uppLength, downLength, mdLength);
       values = angleMap(servoAngle, int(data[pointIdx+2]));
     } else {
       pointIdx = 0;
     }
   }
-  // Replay Path
-  else if (isSwitch == 4) {
+  
+  // Write Path
+  else if (isSwitch == 5) {
+    if (mousePressed) {
+      IKDraw();
+      //Prepare to sending values
+      values = angleMap(servoAngle, heightValues);
+      if (isRecording) {
+        Recording3(readPath, upp.x, upp.y, heightValues);
+      }
+    }
+  }
+  
+  
+  // Replay DynaBase Path
+  else if (isSwitch == 6) {
     if (!isReaded) {
       readFileName = readTxtField.getText();
       data = Reading(readFileName);
@@ -122,40 +146,28 @@ void draw() {
     }
   }
 
-  // Write DynaFrame Path
-  else if (isSwitch == 5) {
-    if (mousePressed) {
-      IKDraw();
-      //Prepare to sending values
-      values = angleMap(servoAngle, heightValues);
-      if (isRecording) {
-        Recording3(readPath, upp.x, upp.y, heightValues);
-      }
-    }
-  }
 
-  // Write DynaBase Path
+
+  // Replay DynaFrame Path
   else if (isSwitch == 7) {
-    if (mousePressed) {
-      IKDraw();
-      //Prepare to sending values
-      values = angleMap(servoAngle, heightValues);
-      if (isRecording) {
-        Recording2(readPath, upp.x, upp.y);
-      }
+    if (!isReaded) {
+      readFileName = readTxtField.getText();
+      data = Reading(readFileName);
+      tanData = AddZDimension(data);
+      isReaded = true;
+    }
+    if (pointIdx<data.length-1 && pointIdx>=0) {
+      //println("---"+pointIdx);
+      servoAngle = IKControl(tanData[pointIdx], tanData[pointIdx+1], uppLength, downLength, mdLength);
+      values = angleMap(servoAngle, int(tanData[pointIdx+2]));
+      pointIdx = pointIdx +3;
+      println("a0:"+values[0]+",a1:"+values[1]+",a2:"+values[2]);
+    } else {
+      pointIdx = 0;
+      println("-----");
+      delay(1000);
     }
   }
-
-
-  // Write Point
-  else if (isSwitch == 6) {
-    if (mousePressed) {
-      IKDraw();
-    }
-    values = angleMap(servoAngle, heightValues);
-  }
-
-
 
 
 
@@ -163,7 +175,7 @@ void draw() {
   if (!arrayCompare(values, preValues)) {
     sendEvent(values);
     arrayCopy(values, preValues);
-    motorAngle = readEvent();
+    //motorAngle = readEvent();
   }
 }
 

@@ -12,7 +12,7 @@ void sendEvent(int data[]) {
     myPort.write(data[i]%256);
     
   }
-  //println("data input "+data[0]+","+data[1]);
+  println("data0:"+data[0]+",data1:"+data[1]+",data2:"+data[2]);
 }
 
 int[] readEvent() {
