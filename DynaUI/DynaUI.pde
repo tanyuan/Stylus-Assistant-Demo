@@ -1,4 +1,4 @@
-import processing.serial.*;
+ import processing.serial.*;
 import controlP5.*;
 Serial myPort;  // Create object from Serial class
 

@@ -6,7 +6,7 @@
   by Scott Fitzgerald
   http://www.arduino.cc/en/Tutorial/Sweep
 */
-#define MOTORNUM 6
+#define MOTORNUM 4
 
 
 #include <Servo.h>
@@ -27,7 +27,7 @@ void setup() {
     //myservo[i].attach(i + 2); //servo motors begin form pin2
     pos[i] = 160;
   }
-  //Dynamixel.setID (1, 3) ;
+  Dynamixel.setID (1, 4) ;
   //Dynamixel.reset (3) ;
 }
 
