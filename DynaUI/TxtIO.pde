@@ -34,4 +34,3 @@ void Recording2(PrintWriter path, float x, float y) {
   path.print(",");
   println("Recording:"+x+","+y);
 }
-

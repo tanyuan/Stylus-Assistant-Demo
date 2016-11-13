@@ -163,10 +163,12 @@ void keyReleased() {
   }
 }
 
-
+public void play(int theValue) {
+      isSwitch = 7;
+      appState= "Dynaframe Path Replay Control";
+}
 void flowIK(int[] data) {
   for (int i = 0; i<motorNum; i++) {
     cp5.getController("Motor"+str(i+1)).setValue(data[i]);
   }
 }
-

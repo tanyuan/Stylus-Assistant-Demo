@@ -16,7 +16,7 @@ color blue = color(0, 174, 239);
 
 int offSetY = 5;
 void Gui() {
-  size (800, 800);
+  
   noStroke();
   smooth();  
   cp5 = new ControlP5(this);
@@ -85,7 +85,10 @@ void Gui() {
             .setFont(createFont("Georgia", 14))
               //.set
               ;
-
+  cp5.addButton("play")
+     .setPosition(10,300)
+     .setSize(200,19)
+     ;
 
 
   // Motor Control Sliders 
@@ -103,4 +106,3 @@ void Gui() {
                 ;
   }
 }
-

@@ -70,10 +70,3 @@ int[] angleMap(float [] ikAngle, int zAngle) {
 //  dynaAngle[3] = zAngle; 
   return dynaAngle;
 }
-
-
-
-
-
-
-

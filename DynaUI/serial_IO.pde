@@ -32,4 +32,3 @@ int[] readEvent() {
   }
   return data;
 }
-

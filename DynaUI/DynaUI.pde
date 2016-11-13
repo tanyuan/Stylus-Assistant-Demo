@@ -69,6 +69,7 @@ void setup() {
   myPort = new Serial(this, portName, 9600);
   delay(1000);
   Gui();
+  size (800, 800);
 }
 
 void draw() {
@@ -80,6 +81,7 @@ void draw() {
       values[i] = int(sliValue[i]);
       //println(isSwitch);
     }
+    isReaded = false;
     //println("valuse[0] is "+values[0]);
   }// IK Control
   else if (isSwitch == 2) {
@@ -171,7 +173,12 @@ void draw() {
       pointIdx = 0;
       println("-----");
       delay(1000);
+      //back to slider
+      isSwitch = 1;
+      appState = "Slider Control";
+      initSnake();
     }
+
   }
 
 
@@ -199,4 +206,3 @@ void initSnake() {
   sendEvent(initState0);
   flowIK(initState0);
 }
-
