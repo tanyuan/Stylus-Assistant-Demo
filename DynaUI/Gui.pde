@@ -13,6 +13,7 @@ Textfield recordTxtField, readTxtField;
 color black = color(0);
 color white = color(255);
 color blue = color(0, 174, 239);
+color green = color(78, 191, 78);
 
 int offSetY = 5;
 void Gui() {
@@ -85,10 +86,33 @@ void Gui() {
             .setFont(createFont("Georgia", 14))
               //.set
               ;
-  cp5.addButton("play")
-     .setPosition(10,300)
-     .setSize(200,19)
-     ;
+              
+  cp5.addTextlabel("label3")
+   .setText("DynaFrame Demo:")
+   .setPosition(10, 270)
+   .setColorValue(black)
+   .setFont(createFont("Georgia", 14))
+   ;
+  cp5.addButton("frame_demo_1")
+   .setPosition(10,300)
+   .setSize(200,32)
+   .setColorBackground(green)
+   ;
+  cp5.addButton("frame_demo_2")
+   .setPosition(10,340)
+   .setSize(200,32)
+   .setColorBackground(green)
+   ;
+  cp5.addButton("frame_demo_3")
+   .setPosition(10,380)
+   .setSize(200,32)
+   .setColorBackground(green)
+   ;
+  cp5.addButton("frame_demo_4")
+   .setPosition(10,420)
+   .setSize(200,32)
+   .setColorBackground(green)
+   ;
 
 
   // Motor Control Sliders 

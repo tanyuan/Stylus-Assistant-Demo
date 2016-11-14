@@ -163,8 +163,20 @@ void keyReleased() {
   }
 }
 
-public void play(int theValue) {
-      isSwitch = 7;
+public void frame_demo_1(int theValue) {
+      isSwitch = 11;
+      appState= "Dynaframe Path Replay Control";
+}
+public void frame_demo_2(int theValue) {
+      isSwitch = 12;
+      appState= "Dynaframe Path Replay Control";
+}
+public void frame_demo_3(int theValue) {
+      isSwitch = 13;
+      appState= "Dynaframe Path Replay Control";
+}
+public void frame_demo_4(int theValue) {
+      isSwitch = 14;
       appState= "Dynaframe Path Replay Control";
 }
 void flowIK(int[] data) {

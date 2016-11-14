@@ -65,7 +65,7 @@ boolean isReaded = false;
 
 void setup() {
   println(wsOrignal.x, wsOrignal.y);
-  portName = Serial.list()[3]; //change the 0 to a 1 or 2 etc. to match your port
+  portName = Serial.list()[2]; //change the 0 to a 1 or 2 etc. to match your port
   myPort = new Serial(this, portName, 9600);
   delay(1000);
   Gui();
@@ -85,8 +85,8 @@ void draw() {
     //println("valuse[0] is "+values[0]);
   }// IK Control
   else if (isSwitch == 2) {
+    IKDraw();
     if (mousePressed) {
-      IKDraw();
       //println("angle0:"+servoAngle[0],",angle1:"+servoAngle[1]);
       values = angleMap(servoAngle, heightValues);
     }
@@ -180,6 +180,23 @@ void draw() {
     }
 
   }
+  
+  // DEMO: frame path 1
+  else if (isSwitch == 11) {
+    demoFrame("d1");
+  }
+  // DEMO: frame path 2
+  else if (isSwitch == 12) {
+    demoFrame("d2");
+  }
+  // DEMO: frame path 3
+  else if (isSwitch == 13) {
+    demoFrame("d3");
+  }
+  // DEMO: frame path 4
+  else if (isSwitch == 14) {
+    demoFrame("d4");
+  }
 
 
 
@@ -205,4 +222,28 @@ public boolean arrayCompare(int[] a1, int[] a2) {
 void initSnake() {
   sendEvent(initState0);
   flowIK(initState0);
+}
+
+void demoFrame(String filename) {
+      if (!isReaded) {
+      readFileName = filename;
+      data = Reading(readFileName);
+      tanData = AddZDimension(data);
+      isReaded = true;
+    }
+    if (pointIdx<data.length-1 && pointIdx>=0) {
+      //println("---"+pointIdx);
+      servoAngle = IKControl(tanData[pointIdx], tanData[pointIdx+1], uppLength, downLength, mdLength);
+      values = angleMap(servoAngle, int(tanData[pointIdx+2]));
+      pointIdx = pointIdx +3;
+      println("a0:"+values[0]+",a1:"+values[1]+",a2:"+values[2]);
+    } else {
+      pointIdx = 0;
+      println("-----");
+      delay(1000);
+      //back to slider
+      isSwitch = 1;
+      appState = "Slider Control";
+      initSnake();
+    }
 }
