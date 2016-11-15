@@ -14,6 +14,7 @@ color black = color(0);
 color white = color(255);
 color blue = color(0, 174, 239);
 color green = color(78, 191, 78);
+color orange = color(226, 117, 0);
 
 int offSetY = 5;
 void Gui() {
@@ -112,6 +113,17 @@ void Gui() {
    .setPosition(10,420)
    .setSize(200,32)
    .setColorBackground(green)
+   ;
+  cp5.addTextlabel("label4")
+   .setText("DynaBase Demo:")
+   .setPosition(10, 460)
+   .setColorValue(black)
+   .setFont(createFont("Georgia", 14))
+   ;
+  cp5.addButton("base_demo_1")
+   .setPosition(10,490)
+   .setSize(200,32)
+   .setColorBackground(orange)
    ;
 
 

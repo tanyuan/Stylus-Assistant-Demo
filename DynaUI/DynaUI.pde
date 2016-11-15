@@ -150,6 +150,10 @@ void draw() {
       pointIdx = 0;
       println("-----");
       delay(1000);
+      //back to slider
+      isSwitch = 1;
+      appState = "Slider Control";
+      initSnake();
     }
   }
 
@@ -197,6 +201,10 @@ void draw() {
   else if (isSwitch == 14) {
     demoFrame("d4");
   }
+  // DEMO: base path 1
+  else if (isSwitch == 21) {
+    demoBase("b1");
+  }
 
 
 
@@ -229,6 +237,31 @@ void demoFrame(String filename) {
       readFileName = filename;
       data = Reading(readFileName);
       tanData = AddZDimension(data);
+      isReaded = true;
+    }
+    if (pointIdx<data.length-1 && pointIdx>=0) {
+      //println("---"+pointIdx);
+      servoAngle = IKControl(tanData[pointIdx], tanData[pointIdx+1], uppLength, downLength, mdLength);
+      values = angleMap(servoAngle, int(tanData[pointIdx+2]));
+      pointIdx = pointIdx +3;
+      println("a0:"+values[0]+",a1:"+values[1]+",a2:"+values[2]);
+    } else {
+      pointIdx = 0;
+      println("-----");
+      delay(1000);
+      //back to slider
+      isSwitch = 1;
+      appState = "Slider Control";
+      initSnake();
+    }
+}
+
+void demoBase(String filename) {
+      if (!isReaded) {
+      readFileName = filename;
+      data = Reading(readFileName);
+      tanData = TangentAngle(data);
+      //exit();
       isReaded = true;
     }
     if (pointIdx<data.length-1 && pointIdx>=0) {
