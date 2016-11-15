@@ -104,16 +104,16 @@ void Gui() {
    .setSize(200,32)
    .setColorBackground(green)
    ;
-  cp5.addButton("frame_demo_3")
-   .setPosition(10,380)
-   .setSize(200,32)
-   .setColorBackground(green)
-   ;
-  cp5.addButton("frame_demo_4")
-   .setPosition(10,420)
-   .setSize(200,32)
-   .setColorBackground(green)
-   ;
+  //cp5.addButton("frame_demo_3")
+  // .setPosition(10,380)
+  // .setSize(200,32)
+  // .setColorBackground(green)
+  // ;
+  //cp5.addButton("frame_demo_4")
+  // .setPosition(10,420)
+  // .setSize(200,32)
+  // .setColorBackground(green)
+  // ;
   cp5.addTextlabel("label4")
    .setText("DynaBase Demo:")
    .setPosition(10, 460)
@@ -122,6 +122,11 @@ void Gui() {
    ;
   cp5.addButton("base_demo_1")
    .setPosition(10,490)
+   .setSize(200,32)
+   .setColorBackground(orange)
+   ;
+  cp5.addButton("base_demo_2")
+   .setPosition(10,530)
    .setSize(200,32)
    .setColorBackground(orange)
    ;

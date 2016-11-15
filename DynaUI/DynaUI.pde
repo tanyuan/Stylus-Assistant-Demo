@@ -205,6 +205,10 @@ void draw() {
   else if (isSwitch == 21) {
     demoBase("b1");
   }
+  // DEMO: base path 1
+  else if (isSwitch == 22) {
+    demoBase("b2");
+  }
 
 
 

@@ -183,6 +183,10 @@ public void base_demo_1(int theValue) {
       isSwitch = 21;
       appState= "Dynabase Path Replay Control";
 }
+public void base_demo_2(int theValue) {
+      isSwitch = 22;
+      appState= "Dynabase Path Replay Control";
+}
 void flowIK(int[] data) {
   for (int i = 0; i<motorNum; i++) {
     cp5.getController("Motor"+str(i+1)).setValue(data[i]);
