@@ -5,14 +5,15 @@
  * www.sojamo.de/libraries/controlp5
  */
 void sendEvent(int data[]) {
+  myPort.clear();
   myPort.write(0xfe);
   for (int i = 0; i<motorNum; i++) {
-    //println("i is "+i+" : "+data[i]);
+    print("data["+i+"]: "+data[i]+", ");
     myPort.write(data[i]/256);
     myPort.write(data[i]%256);
-    
   }
-  println("data0:"+data[0]+",data1:"+data[1]+",data2:"+data[2]);
+  println("");
+  delay(100);
 }
 
 int[] readEvent() {

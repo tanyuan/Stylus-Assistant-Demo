@@ -27,7 +27,7 @@ void setup() {
     //myservo[i].attach(i + 2); //servo motors begin form pin2
     pos[i] = 160;
   }
-  Dynamixel.setID (1, 4) ;
+//  Dynamixel.setID (1, 3) ;
   //Dynamixel.reset (3) ;
 }
 

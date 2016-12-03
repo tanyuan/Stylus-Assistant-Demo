@@ -187,11 +187,11 @@ void draw() {
   
   // DEMO: frame path 1
   else if (isSwitch == 11) {
-    demoFrame("d1");
+    demoFrame("big");
   }
   // DEMO: frame path 2
   else if (isSwitch == 12) {
-    demoFrame("d2");
+    demoFrame("egg");
   }
   // DEMO: frame path 3
   else if (isSwitch == 13) {
@@ -203,11 +203,11 @@ void draw() {
   }
   // DEMO: base path 1
   else if (isSwitch == 21) {
-    demoBase("b1");
+    demoBase("line1");
   }
   // DEMO: base path 1
   else if (isSwitch == 22) {
-    demoBase("b2");
+    demoBase("line2");
   }
 
 
@@ -218,6 +218,7 @@ void draw() {
     arrayCopy(values, preValues);
     //motorAngle = readEvent();
   }
+
 }
 
 

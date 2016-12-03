@@ -88,6 +88,7 @@ void Gui() {
               //.set
               ;
               
+//////////////////////////// DynaFrame
   cp5.addTextlabel("label3")
    .setText("DynaFrame Demo:")
    .setPosition(10, 270)
@@ -114,6 +115,8 @@ void Gui() {
   // .setSize(200,32)
   // .setColorBackground(green)
   // ;
+  
+  //////////////////////////// DynaBase
   cp5.addTextlabel("label4")
    .setText("DynaBase Demo:")
    .setPosition(10, 460)
